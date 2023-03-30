@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class ProductDto {
+
     private Long productId;
     private String name;
     private String description;
@@ -19,3 +20,4 @@ public class ProductDto {
     private Long orderItemId;
 
 }
+
