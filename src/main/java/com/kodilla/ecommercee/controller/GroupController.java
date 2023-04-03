@@ -19,7 +19,7 @@ public class GroupController {
 
     @GetMapping(value = "{groupId}")
     public GroupDto getGroup(@PathVariable Long groupId) {
-        return new GroupDto(1L, "Ubrania", 2L);
+        return new GroupDto(1L, "Ubrania");
     }
 
     @PostMapping
@@ -28,6 +28,6 @@ public class GroupController {
 
     @PutMapping
     public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
-        return new GroupDto(1L, "Ubrania nowe", 3L);
+        return new GroupDto(1L, "Ubrania nowe");
     }
 }
