@@ -5,14 +5,14 @@ import lombok.Getter;
 
 @Getter
 public class UserDto {
-    private int userId;
+    private Long userId;
     private String username;
-    private int status;
+    private String status;
     private int userKey;
     private int cartId;
     private int ordersId;
 
-    public UserDto(int userId, String username, int status, int userKey) {
+    public UserDto(Long userId, String username, String status, int userKey) {
         this.userId = userId;
         this.username = username;
         this.status = status;
