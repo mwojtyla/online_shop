@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping(value = "{userId}")
     public UserDto getUser(@PathVariable Long userId) {
-        return new UserDto(1L, "mike", "online", 555);
+        return new UserDto(1L, "mike", "online", 555, 1, 1);
     }
 
     @DeleteMapping
@@ -28,7 +28,7 @@ public class UserController {
 
     @PutMapping
     public UserDto updateUser(UserDto userDto) {
-        return new UserDto(1L, "mikeeee", "offline", 555);
+        return new UserDto(1L, "mikeeee", "offline", 555, 1, 1);
     }
 
     @PostMapping
