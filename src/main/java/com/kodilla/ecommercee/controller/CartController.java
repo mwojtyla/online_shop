@@ -45,6 +45,10 @@ public class CartController {
     public void removeProductFromCart(@PathVariable Long cartId, @PathVariable Long productId){
         System.out.println("element " + productId + " removed from " + cartId);
     }
+    @DeleteMapping("{cartId}")
+    public void removeEverythingFromCart(@PathVariable Long cartId){
+        System.out.println("Everything removed from cart " + cartId);
+    }
     @PostMapping("{cartId}/create_order")
     public void createOrder(@PathVariable Long cartId){
         System.out.println("Order created for cart " + cartId);
