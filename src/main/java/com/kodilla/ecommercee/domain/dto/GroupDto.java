@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GroupDto {
-    private Long id;
+    private Long groupId;
     private String name;
+    private Long productId;
 
 }
