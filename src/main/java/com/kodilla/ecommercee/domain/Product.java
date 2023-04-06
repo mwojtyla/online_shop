@@ -1,0 +1,53 @@
+package com.kodilla.ecommercee.domain;
+
+import com.kodilla.ecommercee.domain.dto.ProductsInCartDto;
+import lombok.*;
+import org.jetbrains.annotations.NotNull;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor(force = true)
+@AllArgsConstructor
+@Entity
+@Table(name = "PRODUCTS")
+public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PRODUCT_ID", unique = true)
+    private Long productId;
+
+    @NotNull
+    @Column(name = "PRODUCT_NAME")
+    private String name;
+
+    @Column(name = "PRODUCT_DESCRIPTION", length = 1024)
+    private String description;
+
+    @NotNull
+    @Column(name = "PRODUCT_PRICE")
+    private BigDecimal price;
+
+    @ManyToOne(
+        fetch = FetchType.LAZY,
+        cascade = CascadeType.PERSIST)
+        @JoinColumn(name = "GROUP_ID")
+    private Group group;
+
+    @OneToMany(
+            mappedBy = "product",
+    fetch = FetchType.LAZY,
+    cascade = CascadeType.PERSIST)
+    private List<ProductsInCart> productsInCarts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product",
+    fetch = FetchType.LAZY,
+    cascade = CascadeType.PERSIST)
+    private List<OrderItem> orderItem = new ArrayList<>();
+
+}
