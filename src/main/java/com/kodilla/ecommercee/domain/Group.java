@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.domain;
 
-import jdk.internal.javac.NoPreview;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
