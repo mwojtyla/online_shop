@@ -1,7 +1,9 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.domain.dto.ProductsInCartDto;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
@@ -18,6 +20,7 @@ import java.util.List;
 public class Product {
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PRODUCT_ID", unique = true)
     private Long productId;
@@ -34,10 +37,10 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne(
-        fetch = FetchType.LAZY,
-        cascade = CascadeType.PERSIST)
-        @JoinColumn(name = "GROUP_ID")
-    private Group group;
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "GROUP_ID")
+    private Group group = new Group();
 
     @OneToMany(
             mappedBy = "product",

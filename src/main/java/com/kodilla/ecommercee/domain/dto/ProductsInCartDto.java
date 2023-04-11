@@ -9,4 +9,5 @@ public class ProductsInCartDto {
 
     private Long cartId;
     private Long productId;
+    private Long quantity;
 }
