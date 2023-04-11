@@ -13,7 +13,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "ORDER_ITEM")
+@Entity
+@Table(name = "ORDER_ITEM")
 public class OrderItem {
 
     @Id
@@ -21,9 +22,6 @@ public class OrderItem {
     @NotNull
     @Column(name = "ORDER_ITEM_ID", unique = true)
     private Long orderItemId;
-
-    @Column(name = "ORDER_STATUS")
-    private String orderStatus;
 
     @NotNull
     @Column(name = "PRICE")
@@ -42,4 +40,8 @@ public class OrderItem {
     )
     @JoinColumn(name = "ORDER_ID")
     private Order order;
+
+
+    @Column(name = "PRODUCT_QUANTITY")
+    private int productQuantity;
 }

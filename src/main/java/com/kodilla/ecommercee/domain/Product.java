@@ -13,12 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "PRODUCTS")
+@Entity
+@Table(name = "PRODUCTS")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    @Column(name = "ORDER_ITEM_ID", unique = true)
+    @Column(name = "PRODUCT_ID", unique = true)
     private Long productId;
 
     @OneToMany(

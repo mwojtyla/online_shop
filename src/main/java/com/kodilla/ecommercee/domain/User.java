@@ -13,14 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "USER")
+@Entity
+@Table(name = "USER")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "USER_ID", unique = true)
-    private Long orderId;
+    private Long userId;
 
     @OneToMany(
             targetEntity = Order.class,
