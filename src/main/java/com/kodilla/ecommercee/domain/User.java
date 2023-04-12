@@ -7,16 +7,18 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "USER")
+@Entity
+@Table(name = "USER")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "USER_ID", unique = true)
     private Long userId;
@@ -24,4 +26,12 @@ public class User {
     @OneToOne
     @JoinColumn(name = "CART_ID")
     private Cart cartId;
+
+    @OneToMany(
+            targetEntity = Order.class,
+            mappedBy = "user",
+            fetch = FetchType.LAZY
+    )
+    private List<Order> orders;
 }
+
