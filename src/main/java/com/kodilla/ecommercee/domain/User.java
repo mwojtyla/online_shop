@@ -23,15 +23,26 @@ public class User {
     @Column(name = "USER_ID", unique = true)
     private Long userId;
 
-    @OneToOne
+    @NotNull
+    @Column(name = "USERNAME")
+    private String username;
+
+    @NotNull
+    @Column(name = "STATUS")
+    private boolean status;
+
+    @NotNull
+    @Column(name = "USER_KEY")
+    private Long userKey;
+
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CART_ID")
-    private Cart cartId;
+    private Cart cart;
 
     @OneToMany(
             targetEntity = Order.class,
-            mappedBy = "user",
+            mappedBy = "userId",
             fetch = FetchType.LAZY
     )
-    private List<Order> orders;
+    private List<Order> ordersId;
 }
-
