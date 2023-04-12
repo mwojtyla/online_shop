@@ -32,7 +32,7 @@ public class User {
 
     @NotNull
     @Column(name = "USER_KEY")
-    private String userKey;
+    private Long userKey;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "CART_ID")
@@ -41,7 +41,6 @@ public class User {
     @OneToMany(
             targetEntity = Order.class,
             mappedBy = "userId",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<Order> ordersId;
