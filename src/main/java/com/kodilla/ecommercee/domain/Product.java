@@ -22,7 +22,7 @@ public class Product {
     @Column(name = "PRODUCT_ID", unique = true)
     private Long productId;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "products")
     private List<Cart> carts;
 
     @OneToMany(
