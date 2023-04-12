@@ -24,8 +24,9 @@ public class Group {
     @Column(name = "GROUP_ID", unique = true)
     private Long groupId;
 
-    @Column(name = "NAME")
+
     @NotNull
+    @Column(name = "NAME")
     private String name;
 
     @OneToMany(targetEntity = Product.class,
