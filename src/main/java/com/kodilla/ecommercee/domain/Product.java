@@ -16,14 +16,17 @@ import java.util.List;
 @Entity
 @Table(name = "PRODUCTS")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "PRODUCT_ID", unique = true)
     private Long productId;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "products")
-    private List<Cart> carts;
+    @OneToMany(
+            mappedBy = "productId",
+            fetch = FetchType.LAZY)
+    private List<ProductsInCart> productsInCart;
 
     @OneToMany(
             targetEntity = OrderItem.class,

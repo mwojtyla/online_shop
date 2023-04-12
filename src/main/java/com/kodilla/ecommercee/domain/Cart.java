@@ -20,15 +20,13 @@ public class Cart {
     @Column(name = "CART_ID", unique = true)
     private Long cartId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(
+            fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User userId;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "PRODUCTS_IN_CARTS",
-            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
-    )
-    private List<Product> products;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "cartId")
+    private List<ProductsInCart> productsInCart;
 }
