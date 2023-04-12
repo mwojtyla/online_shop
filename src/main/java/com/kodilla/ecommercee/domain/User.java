@@ -13,11 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "USER")
+@Entity
+@Table(name = "USER")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "USER_ID", unique = true)
     private Long userId;
@@ -32,18 +33,16 @@ public class User {
 
     @NotNull
     @Column(name = "USER_KEY")
-    private String userKey;
+    private Long userKey;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CART_ID")
     private Cart cart;
 
     @OneToMany(
             targetEntity = Order.class,
             mappedBy = "userId",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<Order> ordersId;
-
 }
