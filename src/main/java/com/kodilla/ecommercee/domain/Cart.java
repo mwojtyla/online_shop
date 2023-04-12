@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
 import com.sun.istack.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "CARTS")
 public class Cart {
 
     @Id

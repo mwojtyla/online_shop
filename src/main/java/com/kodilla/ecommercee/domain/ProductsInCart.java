@@ -28,7 +28,7 @@ public class ProductsInCart {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
-    @Column(name = "QUANTITY")
-    private int quantity;
+    @Column(name = "PRODUCT_QUANTITY")
+    private int productQuantity;
 
 }
