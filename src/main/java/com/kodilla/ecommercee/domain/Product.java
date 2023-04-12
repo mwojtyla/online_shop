@@ -16,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "PRODUCTS")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
@@ -23,10 +24,14 @@ public class Product {
     private Long productId;
 
     @OneToMany(
+            mappedBy = "productId",
+            fetch = FetchType.LAZY)
+    private List<ProductsInCart> productsInCart;
+
+    @OneToMany(
             targetEntity = OrderItem.class,
             mappedBy = "product",
             fetch = FetchType.LAZY
     )
     private List<OrderItem> orderItem;
-
 }
