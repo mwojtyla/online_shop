@@ -20,4 +20,8 @@ public class User {
     @NotNull
     @Column(name = "USER_ID", unique = true)
     private Long userId;
+
+    @OneToOne
+    @JoinColumn(name = "CART_ID")
+    private Cart cartId;
 }
