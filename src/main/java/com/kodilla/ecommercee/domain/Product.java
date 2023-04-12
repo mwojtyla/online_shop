@@ -21,7 +21,7 @@ public class Product {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue()
     @Column(name = "PRODUCT_ID", unique = true)
     private Long productId;
 
@@ -36,21 +36,22 @@ public class Product {
     @Column(name = "PRODUCT_PRICE")
     private BigDecimal price;
 
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "GROUP_ID")
     private Group group = new Group();
 
     @OneToMany(
+            targetEntity =  ProductsInCart.class,
             mappedBy = "product",
-    fetch = FetchType.LAZY,
-    cascade = CascadeType.PERSIST)
+    fetch = FetchType.LAZY
+    )
     private List<ProductsInCart> productsInCarts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product",
-    fetch = FetchType.LAZY,
-    cascade = CascadeType.PERSIST)
+    @OneToMany(
+            targetEntity = OrderItem.class,
+            mappedBy = "product",
+    fetch = FetchType.LAZY
+    )
     private List<OrderItem> orderItem = new ArrayList<>();
 
 }
