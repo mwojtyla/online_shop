@@ -18,11 +18,12 @@ dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     runtimeOnly 'com.mysql:mysql-connector-j'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }
