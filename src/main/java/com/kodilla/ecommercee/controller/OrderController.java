@@ -31,7 +31,7 @@ public class OrderController {
 
     @GetMapping( "/items/{orderItemId}")
     public OrderItemDto getOrderItem(@PathVariable Long orderItemId){
-        return new OrderItemDto(1L,"In progress", new BigDecimal(250), 1L, 1L);
+        return new OrderItemDto(1L,"In progress", new BigDecimal(250), 1L, 1L, 22);
     }
 
     @PostMapping
@@ -50,7 +50,7 @@ public class OrderController {
 
     @PutMapping("/items")
     public OrderItemDto updateOrderItem(@RequestBody OrderItemDto orderItemDto){
-        return new OrderItemDto(1L,"Ended", new BigDecimal(300), 1L, 1L);
+        return new OrderItemDto(1L,"Ended", new BigDecimal(300), 1L, 1L, 22);
     }
 
 
