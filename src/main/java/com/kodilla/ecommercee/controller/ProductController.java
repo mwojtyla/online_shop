@@ -1,9 +1,10 @@
 package com.kodilla.ecommercee.controller;
+
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,27 +14,26 @@ import java.util.List;
 public class ProductController {
 
     @GetMapping
-    public List<ProductDto> getAllProducts() {
-        return new ArrayList<>();
+    public ResponseEntity<List<ProductDto>> getAllProducts() {
+        return ResponseEntity.ok(new ArrayList<>());
     }
 
     @GetMapping("/{productId}")
-    public ProductDto getProductById(@PathVariable Long productId) {
-        return new ProductDto(1L, "Coat", "Black and White", new BigDecimal(1500), 1L, 123L, 4444L);
-    }
+    public ResponseEntity<ProductDto> getProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok(new ProductDto());    }
 
     @PostMapping
-    public void createProduct(@RequestBody ProductDto productDto) {
-
+    public ResponseEntity<Void> createProduct() {
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping
-    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        return new ProductDto(1L, "Coat", "Black and White", new BigDecimal(1300), 1L, 123L, 4444L);
+    @PutMapping("/{productId}")
+    public ResponseEntity<Void> updateProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{productId}")
-    public void deleteProduct(@PathVariable Long productId) {
-
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok().build();
     }
 }

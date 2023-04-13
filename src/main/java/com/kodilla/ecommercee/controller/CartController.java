@@ -4,7 +4,6 @@ import com.kodilla.ecommercee.domain.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,23 +18,8 @@ public class CartController {
         return cartId;
     }
     @GetMapping("{cartId}")
-    public List<ProductDto> fetchProductsInCart(@PathVariable Long cartId){
-        List<ProductDto> productList = new ArrayList<>();
-        productList.add(new ProductDto(1L,
-                "product 1",
-                "Test",
-                BigDecimal.valueOf(10),
-                1L,
-                1L,
-                1L));
-        productList.add(new ProductDto(2L,
-                "product 2",
-                "Test",
-                BigDecimal.valueOf(20),
-                2L,
-                1L,
-                1L));
-        return productList;
+    public List<ProductDto> fetchProductsInCart(@PathVariable Long cartId) {
+        return new ArrayList<>();
     }
     @PutMapping("{cartId}/{productId}")
     public void addProductToCart(@PathVariable Long cartId, @PathVariable Long productId){
