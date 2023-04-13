@@ -27,17 +27,11 @@ public class OrderItem {
     @Column(name = "PRICE")
     private BigDecimal price;
 
-    @ManyToOne(
-            targetEntity = Product.class,
-            fetch = FetchType.EAGER
-    )
+    @ManyToOne
     @JoinColumn(name = "PRODUCTS_ID")
     private Product product;
 
-    @ManyToOne(
-            targetEntity = Order.class,
-            fetch = FetchType.EAGER
-    )
+    @ManyToOne
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
