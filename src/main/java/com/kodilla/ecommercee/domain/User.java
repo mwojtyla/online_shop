@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 public class User {
 
     @Id
@@ -41,7 +41,7 @@ public class User {
 
     @OneToMany(
             targetEntity = Order.class,
-            mappedBy = "userId",
+            mappedBy = "user",
             fetch = FetchType.LAZY
     )
     private List<Order> ordersId;
