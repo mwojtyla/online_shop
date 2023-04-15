@@ -125,6 +125,7 @@ public class OrderItemEntityTests {
         orderItemRepository.deleteById(orderItemId);
         // Then
         assertEquals(Optional.empty(), orderItemRepository.findById(orderItemId));
+        assertFalse(orderItemRepository.existsById(orderItemId));
     }
 
 }

@@ -123,9 +123,12 @@ public class OrderEntityTests {
         Order order = createOrder1();
         orderRepository.save(order);
         Long orderId = order.getOrderId();
+        OrderItem orderItem = order.getOrdersItems().get(0);
         // When
+        orderItemRepository.deleteById(orderItem.getOrderItemId());
         orderRepository.deleteById(orderId);
         // Then
         assertEquals(Optional.empty(), orderRepository.findById(orderId));
+        assertFalse(orderRepository.existsById(orderId));
     }
 }
