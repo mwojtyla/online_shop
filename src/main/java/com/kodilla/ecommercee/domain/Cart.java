@@ -9,12 +9,11 @@ import org.jetbrains.annotations.NotNull;
 import javax.persistence.*;
 import java.util.List;
 
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "CARTS")
+@Entity(name = "CARTS")
 public class Cart {
 
     @Id
