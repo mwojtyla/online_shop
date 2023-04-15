@@ -31,17 +31,14 @@ public class OrderItemEntityTests {
         Order order1 = new Order();
         Product product1 = new Product();
         Group group1 = new Group();
-
         OrderItem orderItem1 = new OrderItem();
-        List<OrderItem> orderItemList1 = new ArrayList<OrderItem>();
-        orderItemList1.add(orderItem1);
 
         groupRepository.save(group1);
 
-        order1.setOrdersItems(orderItemList1);
+        order1.getOrdersItems().add(orderItem1);
         orderRepository.save(order1);
 
-        product1.setOrderItem(orderItemList1);
+        product1.getOrderItem().add(orderItem1);
         product1.setGroup(group1);
         productRepository.save(product1);
 
@@ -57,17 +54,14 @@ public class OrderItemEntityTests {
         Order order2 = new Order();
         Product product2 = new Product();
         Group group2 = new Group();
-
         OrderItem orderItem2 = new OrderItem();
-        List<OrderItem> orderItemList2 = new ArrayList<>();
-        orderItemList2.add(orderItem2);
 
         groupRepository.save(group2);
 
-        order2.setOrdersItems(orderItemList2);
+        order2.getOrdersItems().add(orderItem2);
         orderRepository.save(order2);
 
-        product2.setOrderItem(orderItemList2);
+        product2.getOrderItem().add(orderItem2);
         product2.setGroup(group2);
         productRepository.save(product2);
 

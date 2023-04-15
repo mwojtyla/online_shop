@@ -28,8 +28,6 @@ public class OrderEntityTests {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    OrderItemRepository orderItemRepository;
 
     private Order createOrder1() {
         User user1 = new User();
@@ -39,11 +37,7 @@ public class OrderEntityTests {
         orderList1.add(order1);
 
         OrderItem orderItem1 = new OrderItem();
-        List<OrderItem> orderItemList1 = new ArrayList<>();
-        orderItemList1.add(orderItem1);
-
         orderItem1.setOrder(order1);
-        orderItemRepository.save(orderItem1);
 
         user1.setOrders(orderList1);
         userRepository.save(user1);
@@ -51,7 +45,7 @@ public class OrderEntityTests {
         order1.setOrderStatus("In progress");
         order1.setDateOfOrder(LocalDate.of(2023, 2, 2));
         order1.setUser(user1);
-        order1.setOrdersItems(orderItemList1);
+        order1.getOrdersItems().add(orderItem1);
 
         return order1;
     }
@@ -64,11 +58,7 @@ public class OrderEntityTests {
         orderList2.add(order2);
 
         OrderItem orderItem2 = new OrderItem();
-        List<OrderItem> orderItemList2 = new ArrayList<>();
-        orderItemList2.add(orderItem2);
-
         orderItem2.setOrder(order2);
-        orderItemRepository.save(orderItem2);
 
         user2.setOrders(orderList2);
         userRepository.save(user2);
@@ -76,7 +66,7 @@ public class OrderEntityTests {
         order2.setOrderStatus("In progress");
         order2.setDateOfOrder(LocalDate.of(2023, 2, 2));
         order2.setUser(user2);
-        order2.setOrdersItems(orderItemList2);
+        order2.getOrdersItems().add(orderItem2);
 
         return order2;
     }
@@ -123,9 +113,7 @@ public class OrderEntityTests {
         Order order = createOrder1();
         orderRepository.save(order);
         Long orderId = order.getOrderId();
-        OrderItem orderItem = order.getOrdersItems().get(0);
         // When
-        orderItemRepository.deleteById(orderItem.getOrderItemId());
         orderRepository.deleteById(orderId);
         // Then
         assertEquals(Optional.empty(), orderRepository.findById(orderId));
