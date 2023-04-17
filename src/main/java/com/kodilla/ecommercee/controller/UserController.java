@@ -1,6 +1,9 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.dto.UserDto;
+import com.kodilla.ecommercee.mapper.UserMapper;
+import com.kodilla.ecommercee.service.UserDbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final UserDbService userDbService;
+    private final UserMapper userMapper;
+
     @GetMapping
     public List<UserDto> getAllUsers() {
         return new ArrayList<UserDto>() ;
@@ -19,7 +25,7 @@ public class UserController {
 
     @GetMapping(value = "{userId}")
     public UserDto getUser(@PathVariable Long userId) {
-        return new UserDto(1L, "mike", "online", 555, 1, 1);
+        return new UserDto(1L, "mike", true, 555L, new Cart(), new ArrayList<>());
     }
 
     @DeleteMapping
@@ -28,7 +34,7 @@ public class UserController {
 
     @PutMapping
     public UserDto updateUser(UserDto userDto) {
-        return new UserDto(1L, "mikeeee", "offline", 555, 1, 1);
+        return new UserDto(1L, "mikeeee", true, 555L, new Cart(), new ArrayList<>());
     }
 
     @PostMapping
