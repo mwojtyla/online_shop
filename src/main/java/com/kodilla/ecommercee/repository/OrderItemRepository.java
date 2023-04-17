@@ -10,6 +10,8 @@ import java.util.Optional;
 @Transactional
 @Repository
 public interface OrderItemRepository extends CrudRepository<OrderItem, Long> {
+
+    @Override
     List<OrderItem> findAll();
 
     Optional<OrderItem> findById(Long Id);
