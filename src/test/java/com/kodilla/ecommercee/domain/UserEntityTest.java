@@ -54,7 +54,7 @@ public class UserEntityTest {
         user.setCart(cart);
         user.setOrders(ordersList);
 
-        cart.setUser(user);
+        cart.setUserId(user);
         cart.setProductsInCart(new ArrayList<>());
         return user;
     }
@@ -80,11 +80,10 @@ public class UserEntityTest {
 
         //When
         userRepository.save(user);
-        List<User> userList = (List<User>) userRepository.findAll();
-        int userQuantity = userList.size();
+        List<User> userList = userRepository.findAll();
 
         //Then
-        assertEquals(userQuantity, 1);
+        assertEquals(1, userList.size());
         userRepository.delete(user);
     }
 
@@ -120,3 +119,4 @@ public class UserEntityTest {
         assertFalse(userRepository.existsById(testUserId));
     }
 }
+

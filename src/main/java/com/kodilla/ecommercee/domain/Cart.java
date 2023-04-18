@@ -26,10 +26,11 @@ public class Cart {
     @OneToOne(
             fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
-    private User user;
+    private User userId;
 
     @OneToMany(
             fetch = FetchType.LAZY,
             mappedBy = "cartId")
     private List<ProductsInCart> productsInCart;
 }
+
