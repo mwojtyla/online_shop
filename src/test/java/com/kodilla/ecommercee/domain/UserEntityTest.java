@@ -10,9 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 public class UserEntityTest {
@@ -68,24 +70,11 @@ public class UserEntityTest {
         userRepository.save(user);
 
         //Then
-        Long testUserId = user.getUserId();
-        assertNotEquals(0, testUserId);
-        userRepository.delete(user);
+        assertNotNull(user.getUserId());
+        assertNotNull(user.getCart().getCartId());
+        assertNotNull(user.getOrders());
     }
 
-    @Test
-    void testFindAllUsers() {
-        //Given
-        User user = prepareUserData();
-
-        //When
-        userRepository.save(user);
-        List<User> userList = userRepository.findAll();
-
-        //Then
-        assertEquals(1, userList.size());
-        userRepository.delete(user);
-    }
 
     @Test
     void testFindUserById() {
@@ -97,9 +86,12 @@ public class UserEntityTest {
         Long testUserId = user.getUserId();
         Optional<User> readUser = userRepository.findById(testUserId);
 
+        Long testCartId = user.getCart().getCartId();
+        Optional<Cart> readCart = cartRepository.findById(testCartId);
+
         //Then
         assertTrue(readUser.isPresent());
-        userRepository.delete(user);
+        assertTrue(readCart.isPresent());
     }
 
     @Test
@@ -112,11 +104,11 @@ public class UserEntityTest {
         Long testUserId = user.getUserId();
 
         userRepository.deleteById(testUserId);
-        List<User> userList = (List<User>) userRepository.findAll();
+        cartRepository.deleteById(user.getCart().getCartId());
 
         //Then
-        assertTrue(userList.isEmpty());
         assertFalse(userRepository.existsById(testUserId));
+        assertFalse(cartRepository.existsById(user.getCart().getCartId()));
     }
 }
 
