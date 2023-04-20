@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -83,15 +84,17 @@ public class UserEntityTest {
 
         //When
         userRepository.save(user);
-        Long testUserId = user.getUserId();
-        Optional<User> readUser = userRepository.findById(testUserId);
 
-        Long testCartId = user.getCart().getCartId();
-        Optional<Cart> readCart = cartRepository.findById(testCartId);
+        Optional<User> readUser = userRepository.findById(user.getUserId());
+        Optional<Cart> readCart = cartRepository.findById(user.getCart().getCartId());
+
+        Optional<User> testUser = userRepository.findById(user.getUserId());
+        Long testUserId = testUser.get().getUserId();
 
         //Then
         assertTrue(readUser.isPresent());
         assertTrue(readCart.isPresent());
+        assertEquals(testUserId, user.getUserId());
     }
 
     @Test
@@ -101,13 +104,12 @@ public class UserEntityTest {
 
         //When
         userRepository.save(user);
-        Long testUserId = user.getUserId();
 
-        userRepository.deleteById(testUserId);
+        userRepository.deleteById(user.getUserId());
         cartRepository.deleteById(user.getCart().getCartId());
 
         //Then
-        assertFalse(userRepository.existsById(testUserId));
+        assertFalse(userRepository.existsById(user.getUserId()));
         assertFalse(cartRepository.existsById(user.getCart().getCartId()));
     }
 }
