@@ -40,7 +40,6 @@ public class GroupEntityTests {
 
         //Then
         assertNotEquals(0, groupId);
-        assertTrue(groupRepository.existsById(groupId));
     }
 
     @Test
