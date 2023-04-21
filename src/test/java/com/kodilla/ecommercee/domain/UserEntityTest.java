@@ -88,8 +88,7 @@ public class UserEntityTest {
         Optional<User> readUser = userRepository.findById(user.getUserId());
         Optional<Cart> readCart = cartRepository.findById(user.getCart().getCartId());
 
-        Optional<User> testUser = userRepository.findById(user.getUserId());
-        Long testUserId = testUser.get().getUserId();
+        Long testUserId = readUser.get().getUserId();
 
         //Then
         assertTrue(readUser.isPresent());
