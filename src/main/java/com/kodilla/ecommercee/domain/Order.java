@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -18,8 +19,7 @@ import java.util.List;
 @Table(name = "ORDERS")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue
     @Column(name = "ORDER_ID", unique = true)
     private Long orderId;
 
@@ -40,5 +40,5 @@ public class Order {
             mappedBy = "order",
             fetch = FetchType.LAZY
     )
-    private List<OrderItem> ordersItems;
+    private List<OrderItem> ordersItems = new ArrayList<>();
 }

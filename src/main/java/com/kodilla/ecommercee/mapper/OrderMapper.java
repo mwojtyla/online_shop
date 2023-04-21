@@ -1,0 +1,120 @@
+package com.kodilla.ecommercee.mapper;
+
+import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.OrderItem;
+import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.domain.dto.OrderItemDto;
+import com.kodilla.ecommercee.domain.dto.OrderItemDtoWithoutOrderId;
+import com.kodilla.ecommercee.exception.OrderNotFoundException;
+import com.kodilla.ecommercee.exception.ProductNotFoundException;
+import com.kodilla.ecommercee.exception.UserNotFoundException;
+import com.kodilla.ecommercee.service.OrderDbService;
+import com.kodilla.ecommercee.service.ProductDbService;
+import com.kodilla.ecommercee.service.UserDbService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class OrderMapper {
+
+    @Autowired
+    private ProductDbService productDbService;
+    @Autowired
+    private OrderDbService orderDbService;
+    @Autowired
+    private UserDbService userDbService;
+
+    public List<OrderDto> mapToOrderDtoList(List<Order> orders) {
+        return orders.stream()
+                .map(s -> new OrderDto(
+                        s.getOrderId(),
+                        s.getDateOfOrder(),
+                        s.getOrderStatus(),
+                        s.getUser().getUserId(),
+                        mapToOrderItemDtoListWithoutOrderId(s.getOrdersItems())
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public Order mapToOrder(final OrderDto orderDto) throws UserNotFoundException {
+        return new Order(
+                orderDto.getOrderId(),
+                orderDto.getDateOfOrder(),
+                orderDto.getOrderStatus(),
+                userDbService.getUser(orderDto.getUserId()),
+                orderDto.getOrdersItemsDtosWithoutOrderId().stream()
+                        .map(s -> {
+                            try {
+                                return new OrderItem(
+                                        s.getOrderItemId(),
+                                        s.getPrice(),
+                                        productDbService.getProduct(s.getProductsId()),
+                                        orderDbService.getOrder(orderDto.getOrderId()),
+                                        s.getProductQuantity()
+                                );
+                            } catch (ProductNotFoundException e) {
+                                throw new RuntimeException(e);
+                            } catch (OrderNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .collect(Collectors.toList())
+        );
+    }
+
+    public OrderDto mapToOrderDto(final Order order) {
+        return new OrderDto(
+                order.getOrderId(),
+                order.getDateOfOrder(),
+                order.getOrderStatus(),
+                order.getUser().getUserId(),
+                mapToOrderItemDtoListWithoutOrderId(order.getOrdersItems())
+        );
+    }
+
+    public List<OrderItemDtoWithoutOrderId> mapToOrderItemDtoListWithoutOrderId(final List<OrderItem> ordersItems) {
+        return ordersItems.stream()
+                .map(s -> new OrderItemDtoWithoutOrderId(
+                        s.getOrderItemId(),
+                        s.getPrice(),
+                        s.getProduct().getProductId(),
+                        s.getProductQuantity()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public List<OrderItemDto> mapToOrderItemDtoList(final List<OrderItem> ordersItems) {
+        return ordersItems.stream()
+                .map(s -> new OrderItemDto(
+                        s.getOrderItemId(),
+                        s.getPrice(),
+                        s.getProduct().getProductId(),
+                        s.getOrder().getOrderId(),
+                        s.getProductQuantity()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public OrderItemDto mapToOrderItemDto(final OrderItem orderItem) {
+        return new OrderItemDto(
+                orderItem.getOrderItemId(),
+                orderItem.getPrice(),
+                orderItem.getProduct().getProductId(),
+                orderItem.getOrder().getOrderId(),
+                orderItem.getProductQuantity()
+        );
+    }
+
+    public OrderItem mapToOrderItem(final OrderItemDto orderItemDto) throws ProductNotFoundException, OrderNotFoundException {
+        return new OrderItem(
+                orderItemDto.getOrderItemId(),
+                orderItemDto.getPrice(),
+                productDbService.getProduct(orderItemDto.getProductsId()),
+                orderDbService.getOrder(orderItemDto.getOrderId()),
+                orderItemDto.getProductQuantity()
+        );
+    }
+}

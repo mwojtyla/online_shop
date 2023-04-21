@@ -18,8 +18,7 @@ import java.math.BigDecimal;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue
     @Column(name = "ORDER_ITEM_ID", unique = true)
     private Long orderItemId;
 
