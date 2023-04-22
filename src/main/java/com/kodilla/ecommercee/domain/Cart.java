@@ -13,7 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "CARTS")
+@Entity
+@Table(name = "CARTS")
 public class Cart {
 
     @Id
@@ -32,3 +33,4 @@ public class Cart {
             mappedBy = "cartId")
     private List<ProductsInCart> productsInCart;
 }
+

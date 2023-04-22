@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class UserController {
 
     @GetMapping(value = "{userId}")
     public UserDto getUser(@PathVariable Long userId) {
-        return new UserDto(1L, "mike", "online", 555, 1, 1);
+        return new UserDto(1L, "mike", true, 555L, new Cart(), new ArrayList<>());
     }
 
     @DeleteMapping
@@ -28,7 +29,7 @@ public class UserController {
 
     @PutMapping
     public UserDto updateUser(UserDto userDto) {
-        return new UserDto(1L, "mikeeee", "offline", 555, 1, 1);
+        return new UserDto(1L, "mikeeee", true, 555L, new Cart(), new ArrayList<>());
     }
 
     @PostMapping
