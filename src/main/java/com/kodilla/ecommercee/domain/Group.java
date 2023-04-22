@@ -20,7 +20,6 @@ public class Group {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "GROUP_ID", unique = true)
     private Long groupId;
 

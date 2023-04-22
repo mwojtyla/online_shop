@@ -26,7 +26,7 @@ public class OrderController {
 
     @GetMapping("{orderId}")
     public OrderDto getOrder(@PathVariable Long orderId){
-        return new OrderDto(1L,LocalDate.now(),"Paid", 1L,1L);
+        return new OrderDto(1L,LocalDate.now(),"Paid", 1L,null);
     }
 
     @GetMapping( "/items/{orderItemId}")
@@ -45,7 +45,7 @@ public class OrderController {
 
     @PutMapping
     public OrderDto updateOrder(@RequestBody OrderDto orderDto){
-        return new OrderDto(1L,LocalDate.now(),"In progress", 1L,1L);
+        return new OrderDto(1L,LocalDate.now(),"In progress", 1L,null);
     }
 
     @PutMapping("/items")
