@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table (name = "GROUPS")
+@Table (name = "PRODUCT_GROUP")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
