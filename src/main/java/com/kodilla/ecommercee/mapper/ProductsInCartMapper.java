@@ -2,7 +2,7 @@ package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.domain.ProductsInCart;
 import com.kodilla.ecommercee.domain.dto.ProductsInCartDto;
-import com.kodilla.ecommercee.exeption.ProductNotFoundException;
+import com.kodilla.ecommercee.exception.ProductNotFoundException;
 import com.kodilla.ecommercee.service.CartService;
 import com.kodilla.ecommercee.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +33,7 @@ public class ProductsInCartMapper {
                 productsInCart.getProduct().getProductId(),
                 productsInCart.getCartId().getCartId(),
                 productsInCart.getProductQuantity()
+
         );
     }
 

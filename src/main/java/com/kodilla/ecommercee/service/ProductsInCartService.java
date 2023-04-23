@@ -2,7 +2,7 @@ package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductsInCart;
-import com.kodilla.ecommercee.exeption.ProductsInCartNotFoundExeption;
+import com.kodilla.ecommercee.exception.ProductsInCartNotFoundExeption;
 import com.kodilla.ecommercee.repository.ProductsInCartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,9 +45,4 @@ public class ProductsInCartService {
         }
     }
 
-    public List<Product> productsInCartToProduct(List<ProductsInCart> productsInCartList) {
-        return productsInCartList.stream()
-                .map(ProductsInCart:: getProduct)
-                .collect(Collectors.toList());
-    }
 }

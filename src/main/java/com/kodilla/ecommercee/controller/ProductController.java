@@ -5,8 +5,8 @@ import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductsInCart;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.domain.dto.ProductsInCartDto;
-import com.kodilla.ecommercee.exeption.ProductNotFoundException;
-import com.kodilla.ecommercee.exeption.ProductsInCartNotFoundExeption;
+import com.kodilla.ecommercee.exception.ProductNotFoundException;
+import com.kodilla.ecommercee.exception.ProductsInCartNotFoundExeption;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.mapper.ProductsInCartMapper;
 import com.kodilla.ecommercee.service.GroupService;
@@ -51,7 +51,7 @@ public class ProductController {
         return ResponseEntity.ok(productDto);
     }
 
-    @GetMapping("/productInCart/{productsInCartId}")
+    @GetMapping("/productsInCart/{productsInCartId}")
     public ResponseEntity<ProductsInCartDto> getProductInCartById(@PathVariable Long productsInCartId) throws ProductsInCartNotFoundExeption {
         ProductsInCart productsInCart = productsInCartService.getProductsInCartById(productsInCartId);
         ProductsInCartDto productsIncartDto = productsInCartMapper.mapToProductsInCartDto(productsInCart);
@@ -84,7 +84,7 @@ public class ProductController {
         return ResponseEntity.ok(updatedProductDto);
     }
 
-    @PutMapping("/productInCart/{productsInCartId}")
+    @PutMapping("/productsInCart/{productsInCartId}")
     public ResponseEntity<ProductsInCartDto> updateProductsInCart(@PathVariable Long productsInCartId, @RequestBody ProductsInCartDto productsInCartDto) throws ProductsInCartNotFoundExeption {
         ProductsInCart productsInCartToUpdate = productsInCartService.getProductsInCartById(productsInCartId);
         productsInCartToUpdate.setProductQuantity(productsInCartDto.getProductQuantity());
@@ -100,7 +100,7 @@ public class ProductController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/productInCart/{productsInCartId}")
+    @DeleteMapping("/productsInCart/{productsInCartId}")
     public ResponseEntity<Void> deleteProductsInCartById(@PathVariable Long productsInCartId) {
         productsInCartService.deleteProductsInCartById(productsInCartId);
         return ResponseEntity.ok().build();
