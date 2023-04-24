@@ -10,9 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -57,7 +55,7 @@ public class UserEntityTest {
         user.setCart(cart);
         user.setOrders(ordersList);
 
-        cart.setUserId(user);
+        cart.setUser(user);
         cart.setProductsInCart(new ArrayList<>());
         return user;
     }
