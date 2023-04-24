@@ -39,7 +39,8 @@ public class GroupEntityTests {
         Long groupId = group.getGroupId();
 
         //Then
-        assertNotEquals(0, groupId);
+        assertEquals("Test Group", group.getName());
+        assertTrue(group.getProducts().contains(product));
     }
 
     @Test
@@ -64,26 +65,6 @@ public class GroupEntityTests {
     }
 
     @Test
-    public void testUpdateGroup() {
-
-        //Given
-        Group group = new Group();
-
-        Product product = new Product();
-        List<Product> productList = new ArrayList<>();
-        productList.add(product);
-        productRepository.save(product);
-        group.setProducts(productList);
-        group.setName("Obuwie");
-
-        //When
-        groupRepository.save(group);
-
-        //Then
-        assertEquals("Obuwie", group.getName());
-    }
-
-    @Test
     public void testFindById(){
 
         //Given
@@ -103,38 +84,5 @@ public class GroupEntityTests {
         Long id = group.getGroupId();
         Optional<Group> groupOptional = groupRepository.findById(id);
         assertEquals(id,groupOptional.get().getGroupId());
-    }
-
-    @Test
-    public void testSetNameGroup() {
-
-        //Given
-        Group groupTest = new Group();
-        groupTest.setName("New Name");
-
-        //When
-        groupRepository.save(groupTest);
-        String name = groupTest.getName();
-
-        //Then
-        assertEquals("New Name", name);
-    }
-
-    @Test
-    public void testSetProducts() {
-
-        //Given
-        Group groupTest = new Group();
-        Product product1 = new Product();
-        product1.setName("product 1");
-        product1.setGroup(groupTest);
-        productRepository.save(product1);
-
-        //When
-        groupTest.getProducts().add(product1);
-        Group savedGroupTest1 = groupRepository.save(groupTest);
-
-        //Then
-        assertTrue(savedGroupTest1.getProducts().contains(product1));
     }
 }
