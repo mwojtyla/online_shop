@@ -33,3 +33,4 @@ public class Cart {
             mappedBy = "cartId")
     private List<ProductsInCart> productsInCart;
 }
+
