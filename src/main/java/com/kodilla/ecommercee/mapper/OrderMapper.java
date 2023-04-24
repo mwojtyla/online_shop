@@ -20,22 +20,19 @@ import java.util.stream.Collectors;
 @Service
 public class OrderMapper {
 
-    @Autowired
-    private ProductDbService productDbService;
-    @Autowired
-    private OrderDbService orderDbService;
-    @Autowired
-    private UserDbService userDbService;
+    private final ProductDbService productDbService;
+    private final OrderDbService orderDbService;
+    private final UserDbService userDbService;
+
+    public OrderMapper(ProductDbService productDbService, OrderDbService orderDbService, UserDbService userDbService) {
+        this.productDbService = productDbService;
+        this.orderDbService = orderDbService;
+        this.userDbService = userDbService;
+    }
 
     public List<OrderDto> mapToOrderDtoList(List<Order> orders) {
         return orders.stream()
-                .map(s -> new OrderDto(
-                        s.getOrderId(),
-                        s.getDateOfOrder(),
-                        s.getOrderStatus(),
-                        s.getUser().getUserId(),
-                        mapToOrderItemDtoListWithoutOrderId(s.getOrdersItems())
-                ))
+                .map(this::mapToOrderDto)
                 .collect(Collectors.toList());
     }
 
@@ -88,13 +85,7 @@ public class OrderMapper {
 
     public List<OrderItemDto> mapToOrderItemDtoList(final List<OrderItem> ordersItems) {
         return ordersItems.stream()
-                .map(s -> new OrderItemDto(
-                        s.getOrderItemId(),
-                        s.getPrice(),
-                        s.getProduct().getProductId(),
-                        s.getOrder().getOrderId(),
-                        s.getProductQuantity()
-                ))
+                .map(this::mapToOrderItemDto)
                 .collect(Collectors.toList());
     }
 
