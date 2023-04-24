@@ -56,7 +56,7 @@ public class UserEntityTest {
         user.setCart(cart);
         user.setOrders(ordersList);
 
-        cart.setUserId(user);
+        cart.setUser(user);
         cart.setProductsInCart(new ArrayList<>());
         return user;
     }
