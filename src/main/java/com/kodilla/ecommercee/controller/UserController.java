@@ -4,8 +4,13 @@ import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.UserDto;
 import com.kodilla.ecommercee.mapper.UserMapper;
+
+import com.kodilla.ecommercee.service.CartDbService;
 import com.kodilla.ecommercee.service.UserDbService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,30 +21,40 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final CartDbService cartDbService;
     private final UserDbService userDbService;
     private final UserMapper userMapper;
 
+
     @GetMapping
-    public List<UserDto> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userDbService.getAllUsers();
-        return userMapper.mapToUserDtoList(users) ;
+        return ResponseEntity.ok(userMapper.mapToUserDtoList(users));
     }
 
     @GetMapping(value = "{userId}")
-    public UserDto getUser(@PathVariable Long userId) {
-        return new UserDto(1L, "mike", true, 555L, new Cart(), new ArrayList<>());
+    public ResponseEntity<UserDto> getUser(@PathVariable Long userId) throws UserNotFoundException {
+        return new ResponseEntity<>(userMapper.mapToUserDto(userDbService.getUser(userId)), HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public void deleteUser(Long userId) {
+    @DeleteMapping(value = "{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        userDbService.deleteUserById(userId);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
-    public UserDto updateUser(UserDto userDto) {
-        return new UserDto(1L, "mikeeee", true, 555L, new Cart(), new ArrayList<>());
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
+        User user = userMapper.mapToUser(userDto);
+        User savedUser = userDbService.save(user);
+        return ResponseEntity.ok(userMapper.mapToUserDto(savedUser));
     }
 
-    @PostMapping
-    public void createUser(UserDto userDto) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> createUser(@RequestBody UserDto userDto) {
+        User user = userMapper.mapToUser(userDto);
+        cartDbService.save(user.getCart());
+        userDbService.save(user);
+        return ResponseEntity.ok().build();
     }
 }

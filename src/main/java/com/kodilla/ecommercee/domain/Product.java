@@ -20,19 +20,16 @@ import java.util.List;
 public class Product {
 
     @Id
-    @NotNull
     @GeneratedValue()
     @Column(name = "PRODUCT_ID", unique = true)
     private Long productId;
 
-    @NotNull
     @Column(name = "PRODUCT_NAME")
     private String name;
 
     @Column(name = "PRODUCT_DESCRIPTION", length = 1024)
     private String description;
 
-    @NotNull
     @Column(name = "PRODUCT_PRICE")
     private BigDecimal price;
 

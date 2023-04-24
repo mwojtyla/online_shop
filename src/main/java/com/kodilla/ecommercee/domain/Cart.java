@@ -19,7 +19,6 @@ public class Cart {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "CART_ID", unique = true)
     private Long cartId;
 

@@ -19,11 +19,9 @@ public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
     @Column(name = "ORDER_ITEM_ID", unique = true)
     private Long orderItemId;
 
-    @NotNull
     @Column(name = "PRICE")
     private BigDecimal price;
 

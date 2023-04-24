@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table (name = "GROUPS")
+@Table (name = "PRODUCT_GROUP")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -20,12 +20,10 @@ public class Group {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "GROUP_ID", unique = true)
     private Long groupId;
 
 
-    @NotNull
     @Column(name = "NAME")
     private String name;
 

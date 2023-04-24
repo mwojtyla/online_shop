@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,15 +21,12 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "ORDER_ID", unique = true)
     private Long orderId;
 
-    @NotNull
     @Column(name = "DATE_OF_ORDER")
     private LocalDate dateOfOrder;
 
-    @NotNull
     @Column(name = "ORDER_STATUS")
     private String orderStatus;
 

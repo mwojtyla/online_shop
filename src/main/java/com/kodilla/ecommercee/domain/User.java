@@ -20,19 +20,15 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
     @Column(name = "USER_ID", unique = true)
     private Long userId;
 
-    @NotNull
     @Column(name = "USERNAME")
     private String username;
 
-    @NotNull
     @Column(name = "STATUS")
     private boolean status;
 
-    @NotNull
     @Column(name = "USER_KEY")
     private Long userKey;
 
