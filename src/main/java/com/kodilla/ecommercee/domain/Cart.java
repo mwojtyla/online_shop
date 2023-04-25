@@ -13,7 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "CARTS")
+@Entity
+@Table(name = "CARTS")
 public class Cart {
 
     @Id
@@ -25,10 +26,11 @@ public class Cart {
     @OneToOne(
             fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
-    private User userId;
+    private User user;
 
     @OneToMany(
             fetch = FetchType.LAZY,
             mappedBy = "cartId")
     private List<ProductsInCart> productsInCart;
 }
+

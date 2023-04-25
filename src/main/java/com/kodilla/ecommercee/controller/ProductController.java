@@ -6,12 +6,12 @@ import com.kodilla.ecommercee.domain.ProductsInCart;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.domain.dto.ProductsInCartDto;
 import com.kodilla.ecommercee.exception.ProductNotFoundException;
-import com.kodilla.ecommercee.exception.ProductsInCartNotFoundExeption;
+import com.kodilla.ecommercee.exception.ProductsInCartNotFoundException;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.mapper.ProductsInCartMapper;
-import com.kodilla.ecommercee.service.GroupService;
-import com.kodilla.ecommercee.service.ProductService;
-import com.kodilla.ecommercee.service.ProductsInCartService;
+import com.kodilla.ecommercee.service.GroupDbService;
+import com.kodilla.ecommercee.service.ProductDbService;
+import com.kodilla.ecommercee.service.ProductsInCartDbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,36 +24,36 @@ import java.util.List;
 @CrossOrigin("*")
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductDbService productDBService;
     private final ProductMapper productMapper;
-    private final GroupService groupService;
+    private final GroupDbService groupDBService;
     private final ProductsInCartMapper productsInCartMapper;
-    private final ProductsInCartService productsInCartService;
+    private final ProductsInCartDbService productsInCartDBService;
 
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
+        List<Product> products = productDBService.getAllProducts();
         List<ProductDto> productDtos = productMapper.mapToProductDtoList(products);
         return ResponseEntity.ok(productDtos);
     }
 
     @GetMapping("/productsInCart")
     public ResponseEntity<List<ProductsInCartDto>> getProductsInCart() {
-        List<ProductsInCart> productsInCartList = productsInCartService.getAllProductsInCart();
+        List<ProductsInCart> productsInCartList = productsInCartDBService.getAllProductsInCart();
         List<ProductsInCartDto> productsInCartDtos = productsInCartMapper.mapToProductsInCartDtoList(productsInCartList);
         return ResponseEntity.ok(productsInCartDtos);
     }
 
     @GetMapping("/{productId}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long productId) throws ProductNotFoundException {
-        Product product = productService.getProductById(productId);
+        Product product = productDBService.getProductById(productId);
         ProductDto productDto = productMapper.mapToProductDto(product);
         return ResponseEntity.ok(productDto);
     }
 
     @GetMapping("/productsInCart/{productsInCartId}")
-    public ResponseEntity<ProductsInCartDto> getProductInCartById(@PathVariable Long productsInCartId) throws ProductsInCartNotFoundExeption {
-        ProductsInCart productsInCart = productsInCartService.getProductsInCartById(productsInCartId);
+    public ResponseEntity<ProductsInCartDto> getProductInCartById(@PathVariable Long productsInCartId) throws ProductsInCartNotFoundException {
+        ProductsInCart productsInCart = productsInCartDBService.getProductsInCartById(productsInCartId);
         ProductsInCartDto productsIncartDto = productsInCartMapper.mapToProductsInCartDto(productsInCart);
         return ResponseEntity.ok(productsIncartDto);
     }
@@ -61,34 +61,34 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Void> createProduct(@RequestBody ProductDto productDto) {
         Product product = productMapper.mapToProduct(productDto);
-        groupService.saveGroup(product.getGroup());
-        productService.saveProduct(product);
+        groupDBService.saveGroup(product.getGroup());
+        productDBService.saveProduct(product);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/productsInCart")
     public ResponseEntity<Void> createProductsInCart(@RequestBody ProductsInCartDto productsInCartDto) throws ProductNotFoundException {
         ProductsInCart productsInCart = productsInCartMapper.mapToProductsInCart(productsInCartDto);
-        productsInCartService.saveProductsInCart(productsInCart);
+        productsInCartDBService.saveProductsInCart(productsInCart);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{productId}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long productId, @RequestBody ProductDto productDto) throws ProductNotFoundException {
-        Product productToUpdate = productService.getProductById(productId);
+        Product productToUpdate = productDBService.getProductById(productId);
         productToUpdate.setName(productDto.getName());
         productToUpdate.setDescription(productDto.getDescription());
         productToUpdate.setPrice(productDto.getPrice());
-        Product updatedProduct = productService.updateProduct(productToUpdate);
+        Product updatedProduct = productDBService.updateProduct(productToUpdate);
         ProductDto updatedProductDto = productMapper.mapToProductDto(updatedProduct);
         return ResponseEntity.ok(updatedProductDto);
     }
 
     @PutMapping("/productsInCart/{productsInCartId}")
-    public ResponseEntity<ProductsInCartDto> updateProductsInCart(@PathVariable Long productsInCartId, @RequestBody ProductsInCartDto productsInCartDto) throws ProductsInCartNotFoundExeption {
-        ProductsInCart productsInCartToUpdate = productsInCartService.getProductsInCartById(productsInCartId);
+    public ResponseEntity<ProductsInCartDto> updateProductsInCart(@PathVariable Long productsInCartId, @RequestBody ProductsInCartDto productsInCartDto) throws ProductsInCartNotFoundException {
+        ProductsInCart productsInCartToUpdate = productsInCartDBService.getProductsInCartById(productsInCartId);
         productsInCartToUpdate.setProductQuantity(productsInCartDto.getProductQuantity());
-        ProductsInCart updatedProductsInCart = productsInCartService.updateProductsInCart(productsInCartToUpdate);
+        ProductsInCart updatedProductsInCart = productsInCartDBService.updateProductsInCart(productsInCartToUpdate);
         ProductsInCartDto updatedProductDto = productsInCartMapper.mapToProductsInCartDto(updatedProductsInCart);
         return ResponseEntity.ok(updatedProductDto);
     }
@@ -96,20 +96,20 @@ public class ProductController {
 
     @DeleteMapping("/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
-        productService.deleteProduct(productId);
+        productDBService.deleteProduct(productId);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/productsInCart/{productsInCartId}")
     public ResponseEntity<Void> deleteProductsInCartById(@PathVariable Long productsInCartId) {
-        productsInCartService.deleteProductsInCartById(productsInCartId);
+        productsInCartDBService.deleteProductsInCartById(productsInCartId);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/productsInCart")
     public ResponseEntity<Void> deleteAllProductsInCart() {
-        List<ProductsInCart> productsInCartList = productsInCartService.getAllProductsInCart();
-        productsInCartService.deleteProductsInCartList(productsInCartList);
+        List<ProductsInCart> productsInCartList = productsInCartDBService.getAllProductsInCart();
+        productsInCartDBService.deleteProductsInCartList(productsInCartList);
         return ResponseEntity.noContent().build();
     }
 

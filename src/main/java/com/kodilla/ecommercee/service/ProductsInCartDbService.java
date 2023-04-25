@@ -1,18 +1,16 @@
 package com.kodilla.ecommercee.service;
 
-import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductsInCart;
-import com.kodilla.ecommercee.exception.ProductsInCartNotFoundExeption;
+import com.kodilla.ecommercee.exception.ProductsInCartNotFoundException;
 import com.kodilla.ecommercee.repository.ProductsInCartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ProductsInCartService {
+public class ProductsInCartDbService {
 
     private final ProductsInCartRepository productsInCartRepository;
 
@@ -20,8 +18,8 @@ public class ProductsInCartService {
         return productsInCartRepository.findAll();
     }
 
-    public ProductsInCart getProductsInCartById(final Long productsInCartId) throws ProductsInCartNotFoundExeption {
-        return productsInCartRepository.findById(productsInCartId).orElseThrow(ProductsInCartNotFoundExeption::new);
+    public ProductsInCart getProductsInCartById(final Long productsInCartId) throws ProductsInCartNotFoundException {
+        return productsInCartRepository.findById(productsInCartId).orElseThrow(ProductsInCartNotFoundException::new);
     }
 
     public void deleteProductsInCartById(final Long productsInCartId) {
@@ -32,7 +30,7 @@ public class ProductsInCartService {
         productsInCartRepository.save(productsInCart);
     }
 
-    public ProductsInCart updateProductsInCart(ProductsInCart updatedProductsInCart) throws ProductsInCartNotFoundExeption {
+    public ProductsInCart updateProductsInCart(ProductsInCart updatedProductsInCart) throws ProductsInCartNotFoundException {
         ProductsInCart productsInCart = getProductsInCartById(updatedProductsInCart.getProductsInCartId());
         productsInCart.setProduct(updatedProductsInCart.getProduct());
         productsInCart.setProductQuantity(updatedProductsInCart.getProductQuantity());

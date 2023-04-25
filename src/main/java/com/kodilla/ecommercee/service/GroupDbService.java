@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GroupService {
+public class GroupDbService {
 
     private final GroupRepository groupRepository;
 
-    public GroupService(GroupRepository groupRepository) {
+    public GroupDbService(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
     }
 
