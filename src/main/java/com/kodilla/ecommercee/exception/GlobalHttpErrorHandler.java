@@ -16,21 +16,6 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(OrderItemNotFoundException.class)
     public ResponseEntity<Object> handleOrderItemNotFoundException(OrderItemNotFoundException exception) {
-        return new ResponseEntity<>("Order item with given id doesn't exist", HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<Object> handleProductNotFoundException(ProductNotFoundException exception) {
-        return new ResponseEntity<>("Product with given id doesn't exist", HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException exception) {
-        return new ResponseEntity<>("User with given id doesn't exist", HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(GroupNotFoundException.class)
-    public ResponseEntity<Object> handleGroupNotFoundException(GroupNotFoundException exception) {
-        return new ResponseEntity<>("Group with given id doesn't exist", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("OrderItem with given id doesn't exist", HttpStatus.BAD_REQUEST);
     }
 }
