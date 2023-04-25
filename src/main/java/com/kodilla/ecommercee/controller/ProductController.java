@@ -74,8 +74,8 @@ public class ProductController {
     }
 
     @PutMapping("/{productId}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long productId, @RequestBody ProductDto productDto) throws ProductNotFoundException {
-        Product productToUpdate = productDBService.getProductById(productId);
+    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto) throws ProductNotFoundException {
+        Product productToUpdate = productDBService.getProductById(productDto.getProductId());
         productToUpdate.setName(productDto.getName());
         productToUpdate.setDescription(productDto.getDescription());
         productToUpdate.setPrice(productDto.getPrice());
