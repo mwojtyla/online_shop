@@ -20,7 +20,6 @@ import java.util.List;
 public class Product {
 
     @Id
-    @NotNull
     @GeneratedValue
     @Column(name = "PRODUCT_ID", unique = true)
     private Long productId;
@@ -43,14 +42,14 @@ public class Product {
     @OneToMany(
             targetEntity =  ProductsInCart.class,
             mappedBy = "product",
-    fetch = FetchType.LAZY
+            fetch = FetchType.LAZY
     )
     private List<ProductsInCart> productsInCarts = new ArrayList<>();
 
     @OneToMany(
             targetEntity = OrderItem.class,
             mappedBy = "product",
-    fetch = FetchType.LAZY
+            fetch = FetchType.LAZY
     )
     private List<OrderItem> orderItem = new ArrayList<>();
 

@@ -11,10 +11,10 @@ import com.kodilla.ecommercee.exception.UserNotFoundException;
 import com.kodilla.ecommercee.service.OrderDbService;
 import com.kodilla.ecommercee.service.ProductDbService;
 import com.kodilla.ecommercee.service.UserDbService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,7 +48,7 @@ public class OrderMapper {
                                 return new OrderItem(
                                         s.getOrderItemId(),
                                         s.getPrice(),
-                                        productDbService.getProduct(s.getProductsId()),
+                                        productDbService.getProductById(s.getProductsId()),
                                         orderDbService.getOrder(orderDto.getOrderId()),
                                         s.getProductQuantity()
                                 );
@@ -89,6 +89,19 @@ public class OrderMapper {
                 .collect(Collectors.toList());
     }
 
+    public List<OrderItem> mapToOrderItemList(List<OrderItemDto> orderItemDtosList) {
+        return orderItemDtosList.stream()
+                .map(orderItemDto -> {
+                    try {
+                        return mapToOrderItem(orderItemDto);
+                    } catch (ProductNotFoundException | OrderNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
     public OrderItemDto mapToOrderItemDto(final OrderItem orderItem) {
         return new OrderItemDto(
                 orderItem.getOrderItemId(),
@@ -103,7 +116,7 @@ public class OrderMapper {
         return new OrderItem(
                 orderItemDto.getOrderItemId(),
                 orderItemDto.getPrice(),
-                productDbService.getProduct(orderItemDto.getProductsId()),
+                productDbService.getProductById(orderItemDto.getProductsId()),
                 orderDbService.getOrder(orderItemDto.getOrderId()),
                 orderItemDto.getProductQuantity()
         );
