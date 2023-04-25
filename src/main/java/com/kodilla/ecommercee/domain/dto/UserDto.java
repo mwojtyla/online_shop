@@ -17,5 +17,5 @@ public class UserDto {
     private boolean status;
     private Long userKey;
     private Cart cart;
-    private List<Order> orders;
+    private List<OrderDto> orders;
 }
