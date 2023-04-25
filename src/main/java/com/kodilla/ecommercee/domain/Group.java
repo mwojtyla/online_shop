@@ -33,4 +33,5 @@ public class Group {
             mappedBy = "group",
             fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
+
 }

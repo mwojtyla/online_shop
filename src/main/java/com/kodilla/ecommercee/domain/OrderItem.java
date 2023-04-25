@@ -19,7 +19,6 @@ public class OrderItem {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "ORDER_ITEM_ID", unique = true)
     private Long orderItemId;
 
