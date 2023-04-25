@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping(value = "{userId}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long userId) throws UserNotFoundException {
-        return new ResponseEntity<>(userMapper.mapToUserDto(userDbService.getUser(userId)), HttpStatus.OK);
+        return ResponseEntity.ok(userMapper.mapToUserDto(userDbService.getUser(userId)));
     }
 
     @DeleteMapping(value = "{userId}")
