@@ -9,10 +9,9 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @AllArgsConstructor
-public class OrderItemDto {
+public class OrderItemDtoWithoutOrderId {
     private Long orderItemId;
     private BigDecimal price;
     private Long productsId;
-    private Long orderId;
     private int productQuantity;
 }
