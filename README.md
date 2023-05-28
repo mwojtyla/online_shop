@@ -1,4 +1,4 @@
-# REST Online Shop
+# REST API Online Shop
 
 ### Introduction
 
